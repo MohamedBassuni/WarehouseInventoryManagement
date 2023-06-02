@@ -5,17 +5,17 @@ using WarehouseInventoryManagement.DataAccess.Repository;
 
 namespace WarehouseInventoryManagement.Business.Services
 {
-    public class DeviceService : IDeviceService
+    public class DSService : IDSService
     {
         private IDeviceRepository deviceRepository;
         private IMapper mapper;
 
-        public DeviceService(IDeviceRepository deviceRepository, IMapper mapper)
+        public DSService(IDeviceRepository deviceRepository, IMapper mapper)
         {
             this.deviceRepository = deviceRepository;
             this.mapper = mapper;
         }
-        public async Task<DeviceDTO> Add(DeviceDTO deviceDTO)
+        public async Task<DeviceDTO> Config(DeviceDTO deviceDTO)
         {
             if (deviceDTO == null)
                 throw new Exception("Invalid Object");
@@ -34,38 +34,27 @@ namespace WarehouseInventoryManagement.Business.Services
             };
             return mapper.Map<Device, DeviceDTO>(await this.deviceRepository.Add(newDevice));
         }
-        public async Task<bool> Update(DeviceDTO deviceDTO)
+        public async Task<bool> ConfigureDevice(DeviceDTO deviceDTO)
         {
             if (deviceDTO == null)
                 throw new Exception("Invalid Object");
 
-            if (string.IsNullOrEmpty(deviceDTO.Pin))
-                throw new Exception("Pin should not be empty");
+            if (deviceDTO.Temperature < 0 || deviceDTO.Temperature > 10)
+                throw new Exception("Temperature should be between (0 to 10).");
+
+            if (deviceDTO.DeviceStatusId != (int)Models.DeviceStatus.ACTIVE)
+                throw new Exception("Device status should be Active");
 
             var device = await this.deviceRepository.Get(deviceDTO.Id);
 
             if (device == null)
                 throw new Exception("Device with this Id not");
 
-            if (device.Pin != deviceDTO.Pin)
-                throw new Exception("Invalid Pin");
-
             device.Temperature = deviceDTO.Temperature;
+            device.DeviceStatusId = deviceDTO.DeviceStatusId;
 
             return await this.deviceRepository.Update(device);
         }
-        public async Task<bool> Remove(int deviceId)
-        {
-            var device = await this.deviceRepository.Get(deviceId);
 
-            if (device == null)
-                throw new Exception("Invalid Device Id");
-
-            return await this.deviceRepository.Remove(device);
-        }
-        public async Task<List<DeviceDTO>> GetAllActiveDevices()
-        {
-            return mapper.Map<List<Device>, List<DeviceDTO>>(await this.deviceRepository.GetAll(s => s.DeviceStatusId == (int)Models.DeviceStatus.ACTIVE));
-        }
     }
 }

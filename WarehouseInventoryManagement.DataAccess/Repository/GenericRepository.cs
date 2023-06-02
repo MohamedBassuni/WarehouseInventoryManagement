@@ -37,6 +37,11 @@ namespace WarehouseInventoryManagement.DataAccess.Repository
         {
             return await db.Set<TEntity>().ToListAsync();
         }
+        public virtual async Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> predicate)
+        {
+
+            return await db.Set<TEntity>().Where(predicate).ToListAsync();
+        }
         public async Task<bool> Update(TEntity entity)
         {
             db.Update<TEntity>(entity).State = EntityState.Modified;
@@ -49,5 +54,6 @@ namespace WarehouseInventoryManagement.DataAccess.Repository
             await db.SaveChangesAsync();
             return true;
         }
+
     }
 }

@@ -15,6 +15,7 @@ namespace WarehouseInventoryManagement.DataAccess.Repository
         Task<TEntity> Get(int Id);
         Task<TEntity> Get(Expression<Func<TEntity, bool>> predicate);
         Task<List<TEntity>> GetAll();
+        Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> predicate);
         Task<bool> Update(TEntity entity); 
         Task<bool> Remove(TEntity entity);
 

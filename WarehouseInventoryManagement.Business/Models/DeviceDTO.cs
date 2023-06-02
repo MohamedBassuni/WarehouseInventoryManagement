@@ -7,8 +7,8 @@ namespace WarehouseInventoryManagement.Business.Models
     public class DeviceDTO
     {
         public int Id { get; set; }
-        public int Temperature { get; set; }
-        public int Pin { get; set; }
+        public double Temperature { get; set; }
+        public string Pin { get; set; }
         public int DeviceStatusId { get; set; }
         public string DeviceStatus { get; set; }
 
