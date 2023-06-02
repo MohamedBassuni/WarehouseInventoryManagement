@@ -5,6 +5,7 @@ using WarehouseInventoryManagement.DataAccess.Repository;
 using WarehouseInventoryManagement.DataAccess;
 using WarehouseInventoryManagement.Business.Mapping;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,7 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddControllers();
 builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
 builder.Services.AddScoped<IDeviceService, DeviceService>();
+builder.Services.AddScoped<IDSService, DSService>();
 builder.Services.AddDbContext<WarehouseInventoryManagementDBContext>(
  options => options.UseSqlServer("name=ConnectionStrings:WarehouseInventoryManagementDb"));
 
@@ -37,18 +39,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
-app.UseCors(
-          options => options.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
-
 app.UseHttpsRedirection();
+
+app.ConfigureExceptionHandler();
 
 app.UseRouting();
 
 app.UseAuthorization();
 
 app.MapControllers();
-
 
 app.Run();
 

@@ -8,6 +8,6 @@ namespace WarehouseInventoryManagement.Business.Services
 {
     public interface IDSService
     {
-        Task<bool> ConfigureDevice(DeviceDTO deviceDTO);
+        Task<bool> ConfigureDevice(int id, DeviceConfigurationDTO deviceDTO);
     }
 }

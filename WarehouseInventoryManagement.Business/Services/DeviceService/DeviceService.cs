@@ -15,7 +15,7 @@ namespace WarehouseInventoryManagement.Business.Services
             this.deviceRepository = deviceRepository;
             this.mapper = mapper;
         }
-        public async Task<DeviceDTO> Add(DeviceDTO deviceDTO)
+        public async Task<DeviceDTO> Add(DeviceCreationDTO deviceDTO)
         {
             if (deviceDTO == null)
                 throw new Exception("Invalid Object");
@@ -29,26 +29,30 @@ namespace WarehouseInventoryManagement.Business.Services
             var newDevice = new Device()
             {
                 Temperature = -1,
-                DeviceStatusId = (int)Models.DeviceStatus.READY,
+                DeviceStatusId = (int)DeviceStatusEnum.READY,
                 Pin = deviceDTO.Pin,
             };
             return mapper.Map<Device, DeviceDTO>(await this.deviceRepository.Add(newDevice));
         }
-        public async Task<bool> Update(DeviceDTO deviceDTO)
+        public async Task<bool> Update(int id, DeviceUpdatingDTO deviceDTO)
         {
+
             if (deviceDTO == null)
                 throw new Exception("Invalid Object");
 
             if (string.IsNullOrEmpty(deviceDTO.Pin))
                 throw new Exception("Pin should not be empty");
 
-            var device = await this.deviceRepository.Get(deviceDTO.Id);
+            var device = await this.deviceRepository.Get(id);
 
             if (device == null)
                 throw new Exception("Device with this Id not");
 
             if (device.Pin != deviceDTO.Pin)
                 throw new Exception("Invalid Pin");
+
+            if (device.DeviceStatusId != (int)DeviceStatusEnum.ACTIVE)
+                throw new Exception("Device temperature can't change until device is activated ");
 
             device.Temperature = deviceDTO.Temperature;
 
@@ -65,7 +69,7 @@ namespace WarehouseInventoryManagement.Business.Services
         }
         public async Task<List<DeviceDTO>> GetAllActiveDevices()
         {
-            return mapper.Map<List<Device>, List<DeviceDTO>>(await this.deviceRepository.GetAll(s => s.DeviceStatusId == (int)Models.DeviceStatus.ACTIVE));
+            return mapper.Map<List<Device>, List<DeviceDTO>>(await this.deviceRepository.GetAll(s => s.DeviceStatusId == (int)Models.DeviceStatusEnum.ACTIVE));
         }
     }
 }

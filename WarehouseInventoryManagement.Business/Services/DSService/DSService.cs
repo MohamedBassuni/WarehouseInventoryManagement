@@ -15,26 +15,8 @@ namespace WarehouseInventoryManagement.Business.Services
             this.deviceRepository = deviceRepository;
             this.mapper = mapper;
         }
-        public async Task<DeviceDTO> Config(DeviceDTO deviceDTO)
-        {
-            if (deviceDTO == null)
-                throw new Exception("Invalid Object");
-            if (string.IsNullOrEmpty(deviceDTO.Pin))
-                throw new Exception("Pin should not be empty");
 
-            var device = await this.deviceRepository.Get(s => s.Pin == deviceDTO.Pin);
-            if (device != null)
-                throw new Exception("Device with same PIN already Exist");
-
-            var newDevice = new Device()
-            {
-                Temperature = -1,
-                DeviceStatusId = (int)Models.DeviceStatus.READY,
-                Pin = deviceDTO.Pin,
-            };
-            return mapper.Map<Device, DeviceDTO>(await this.deviceRepository.Add(newDevice));
-        }
-        public async Task<bool> ConfigureDevice(DeviceDTO deviceDTO)
+        public async Task<bool> ConfigureDevice(int id, DeviceConfigurationDTO deviceDTO)
         {
             if (deviceDTO == null)
                 throw new Exception("Invalid Object");
@@ -42,13 +24,13 @@ namespace WarehouseInventoryManagement.Business.Services
             if (deviceDTO.Temperature < 0 || deviceDTO.Temperature > 10)
                 throw new Exception("Temperature should be between (0 to 10).");
 
-            if (deviceDTO.DeviceStatusId != (int)Models.DeviceStatus.ACTIVE)
+            if (deviceDTO.DeviceStatusId != (int)Models.DeviceStatusEnum.ACTIVE)
                 throw new Exception("Device status should be Active");
 
-            var device = await this.deviceRepository.Get(deviceDTO.Id);
+            var device = await this.deviceRepository.Get(id);
 
             if (device == null)
-                throw new Exception("Device with this Id not");
+                throw new Exception("Device with this Id not found");
 
             device.Temperature = deviceDTO.Temperature;
             device.DeviceStatusId = deviceDTO.DeviceStatusId;

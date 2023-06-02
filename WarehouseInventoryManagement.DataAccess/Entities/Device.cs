@@ -15,6 +15,7 @@ namespace WarehouseInventoryManagement.DataAccess.Entities
         public string Pin { get; set; }
         [Required]
         public int DeviceStatusId { get; set; }
-        public DeviceStatus DeviceStatus { get; set; }
+
+        public DeviceStatus? DeviceStatus { get; set; }
     }
 }

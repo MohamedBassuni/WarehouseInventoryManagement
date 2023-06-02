@@ -5,11 +5,18 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "WarehouseInventoryManagement.Database", "WarehouseInventoryManagement.Database\WarehouseInventoryManagement.Database.sqlproj", "{9F21650D-66D1-4A06-A7B2-E34162A4DB28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseInventoryManagement.DataAccess", "WarehouseInventoryManagement.DataAccess\WarehouseInventoryManagement.DataAccess.csproj", "{8488BC01-39B7-4F0E-BDDA-82ECAEC7C93F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseInventoryManagement.DataAccess", "WarehouseInventoryManagement.DataAccess\WarehouseInventoryManagement.DataAccess.csproj", "{8488BC01-39B7-4F0E-BDDA-82ECAEC7C93F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseInventoryManagement.Business", "WarehouseInventoryManagement.Business\WarehouseInventoryManagement.Business.csproj", "{CB818DF0-AB7C-41F4-9E9D-BE476EB32321}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseInventoryManagement.Business", "WarehouseInventoryManagement.Business\WarehouseInventoryManagement.Business.csproj", "{CB818DF0-AB7C-41F4-9E9D-BE476EB32321}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseInventoryManagement.API", "WarehouseInventoryManagement.API\WarehouseInventoryManagement.API.csproj", "{78D2CE49-B356-44B9-9F64-82F1CCB7E224}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseInventoryManagement.API", "WarehouseInventoryManagement.API\WarehouseInventoryManagement.API.csproj", "{78D2CE49-B356-44B9-9F64-82F1CCB7E224}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseInventoryManagement.UnitTests", "WarehouseInventoryManagement.UnitTests\WarehouseInventoryManagement.UnitTests.csproj", "{AA68944A-4A88-42FC-B353-805483C972AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{71819BC5-7015-43DD-9AA9-50F00F2E2D44}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +42,10 @@ Global
 		{78D2CE49-B356-44B9-9F64-82F1CCB7E224}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78D2CE49-B356-44B9-9F64-82F1CCB7E224}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78D2CE49-B356-44B9-9F64-82F1CCB7E224}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA68944A-4A88-42FC-B353-805483C972AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA68944A-4A88-42FC-B353-805483C972AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA68944A-4A88-42FC-B353-805483C972AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA68944A-4A88-42FC-B353-805483C972AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

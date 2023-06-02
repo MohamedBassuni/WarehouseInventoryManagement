@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WarehouseInventoryManagement.Business.Models
 {
-    public enum DeviceStatus
+    public enum DeviceStatusEnum
     {
         READY = 1,
         ACTIVE = 2

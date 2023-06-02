@@ -14,46 +14,28 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace WarehouseInventoryManagement.API.Controllers
 {
-    [Route("api/device")]
+    [Route("api/[controller]")]
     [ApiController]
     public class DCSController : ControllerBase
     {
-        private IDeviceService deviceService;
-        public DCSController(IDeviceService deviceService)
+        private IDSService dsService;
+        public DCSController(IDSService dsService)
         {
-            this.deviceService = deviceService;
+            this.dsService = dsService;
         }
 
-        [HttpPost("add")]
-        public async Task<ActionResult> Add(DeviceDTO deviceDTO)
+        [HttpPost("Configure/{id:int}")]
+        public async Task<ActionResult> Configure(int id, DeviceConfigurationDTO deviceDTO)
         {
-            
-            var device = await deviceService.Add(deviceDTO);
+
+            var device = await dsService.ConfigureDevice(id, deviceDTO);
 
             return Ok(new
             {
-                data = device
+                data = "Device Configured"
             });
         }
 
-        [HttpPost("update")]
-        public async Task<ActionResult> update(DeviceDTO deviceDTO)
-        {
-            var isUpdated = await deviceService.Update(deviceDTO);
-            if (isUpdated)
-                return Ok();
-            else
-                return BadRequest();
-        }
 
-        [HttpPost("remove")]
-        public async Task<ActionResult> remove(int deviceId)
-        {
-            var isRemoved = await deviceService.Remove(deviceId);
-            if (isRemoved)
-                return Ok();
-            else
-                return BadRequest();
-        }
     }
 }

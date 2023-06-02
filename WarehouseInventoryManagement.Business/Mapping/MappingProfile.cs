@@ -12,7 +12,7 @@ namespace WarehouseInventoryManagement.Business.Mapping
         public MappingProfile()
         {
             CreateMap<Device, DeviceDTO>()
-                .ForMember(s => s.DeviceStatus, des => des.MapFrom(s => s.DeviceStatus.Name));
+                .ForMember(s => s.DeviceStatus, des => des.MapFrom(s => s.DeviceStatus.Name)).ReverseMap();
 
         }
     }

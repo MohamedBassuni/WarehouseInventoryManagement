@@ -11,10 +11,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using WarehouseInventoryManagement.DataAccess.Entities;
 
 namespace WarehouseInventoryManagement.API.Controllers
 {
-    [Route("api/device")]
+    [Route("api/[controller]")]
     [ApiController]
     public class DeviceController : ControllerBase
     {
@@ -25,10 +27,20 @@ namespace WarehouseInventoryManagement.API.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<ActionResult> Add(DeviceDTO deviceDTO)
+        public async Task<ActionResult> Add(DeviceCreationDTO deviceDTO)
         {
-            
+
             var device = await deviceService.Add(deviceDTO);
+            return Ok(new
+            {
+                data = device
+            });
+        }
+        [HttpGet("get-active-devices")]
+        public async Task<ActionResult> GetActiveDevices()
+        {
+
+            var device = await deviceService.GetAllActiveDevices();
 
             return Ok(new
             {
@@ -36,24 +48,26 @@ namespace WarehouseInventoryManagement.API.Controllers
             });
         }
 
-        [HttpPost("update")]
-        public async Task<ActionResult> update(DeviceDTO deviceDTO)
+        [HttpPut("update/{id:int}")]
+        public async Task<ActionResult> Update(int id, DeviceUpdatingDTO deviceDTO)
         {
-            var isUpdated = await deviceService.Update(deviceDTO);
-            if (isUpdated)
-                return Ok();
-            else
-                return BadRequest();
+            await deviceService.Update(id, deviceDTO);
+
+            return Ok(new
+            {
+                Message = "Device Updated"
+            });
         }
 
-        [HttpPost("remove")]
-        public async Task<ActionResult> remove(int deviceId)
+        [HttpDelete("remove/{id:int}")]
+
+        public async Task<ActionResult> Remove(int id)
         {
-            var isRemoved = await deviceService.Remove(deviceId);
-            if (isRemoved)
-                return Ok();
-            else
-                return BadRequest();
+            await deviceService.Remove(id);
+            return Ok(new
+            {
+                Message = "Device Removed"
+            });
         }
     }
 }

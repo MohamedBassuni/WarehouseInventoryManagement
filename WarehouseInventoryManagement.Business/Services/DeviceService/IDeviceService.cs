@@ -8,9 +8,9 @@ namespace WarehouseInventoryManagement.Business.Services
 {
     public interface IDeviceService
     {
-        Task<DeviceDTO> Add(DeviceDTO deviceDTO);
-        Task<bool> Update(DeviceDTO deviceDTO);
+        Task<DeviceDTO> Add(DeviceCreationDTO deviceDTO);
+        Task<bool> Update(int id, DeviceUpdatingDTO deviceDTO);
         Task<bool> Remove(int deviceId);
-        Task<List<DeviceDTO>> GetAllDevices();
+        Task<List<DeviceDTO>> GetAllActiveDevices();
     }
 }

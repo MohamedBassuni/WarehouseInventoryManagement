@@ -30,7 +30,6 @@ namespace WarehouseInventoryManagement.DataAccess.Repository
         }
         public virtual async Task<TEntity> Get(Expression<Func<TEntity, bool>> predicate)
         {
-
             return await db.Set<TEntity>().FirstOrDefaultAsync(predicate);
         }
         public virtual async Task<List<TEntity>> GetAll()
