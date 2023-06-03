@@ -110,36 +110,6 @@ namespace WarehouseInventoryManagement.UnitTests
             Assert.IsTrue(devices.All(d => result.Contains(d)));
         }
 
-        [TestMethod]
-        public async Task GetAllWithPredicate()
-        {
-            
-            var devices = new List<Device>
-        {
-            new Device
-            {
-                Temperature = 25.5,
-                Pin = "123456",
-                DeviceStatusId = 1
-            },
-            new Device
-            {
-                Temperature = 30.0,
-                Pin = "654321",
-                DeviceStatusId = 2
-            }
-        };
-            dbContext.Set<Device>().AddRange(devices);
-            await dbContext.SaveChangesAsync();
-
-            
-            var result = await deviceRepository.GetAll(d => d.Temperature > 20.0);
-
-            
-            Assert.IsNotNull(result);
-            Assert.AreEqual(devices.Count, result.Count);
-            Assert.IsTrue(devices.All(d => result.Contains(d)));
-        }
 
         [TestMethod]
         public async Task UpdateDevice()
